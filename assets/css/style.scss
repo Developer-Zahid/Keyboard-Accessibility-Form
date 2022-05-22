@@ -1,0 +1,142 @@
+$color-primary: #7f58e2;
+$color-bg: #fcfcfc;
+$color-text: #202d49;
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+$font-primary: 'Mulish', sans-serif;
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html{
+    font-size: clamp(9px, 2vw, 10px);
+}
+
+body{
+    font-size: 1.6rem;
+    display: grid;
+    place-items: center;
+    color: $color-text;
+    background-color: $color-bg;
+    font-weight: 400;
+    font-family: $font-primary;
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.form{
+    width: 100%;
+    max-width: 60rem;
+    padding: 3em calc(2rem + 2vw);
+    border-radius: 3rem;
+    background-color: $color-white;
+    box-shadow: 0 20px 50px -50px rgba($color-text, 0.2);
+    &__item{
+        counter-reset: alphabet;
+    }
+    &__title{
+        font-size: 2.4rem;
+    }
+    &__sub-title{
+        font-weight: 500;
+        margin-top: 0.9em;
+    }
+    &__option{
+        display: block;
+        margin-top: 1em;
+        counter-increment: alphabet;
+        &__label::before{
+            content: counter(alphabet, upper-alpha);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            font-weight: 800;
+            color: rgba($color-black, 0.3);
+            border: 2px solid rgba($color-black, 0.05);
+            border-radius: 0.7rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition:
+                background-color .3s cubic-bezier(.25,.46,.45,.94),
+                color .3s ease,
+                border-color .3s ease;
+        }
+        &__text{
+            cursor: pointer;
+            transition: color .3s ease;
+            &:hover{
+                color: $color-primary;
+            }
+        }
+        &:hover{
+            .form__option{
+                &__label::before{
+                    color: $color-text;
+                    border-color: rgba($color-black, 0.15);
+                }
+            }
+        }
+        &__input{
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            user-select: none;
+            &:focus-visible ~ .form__option{
+                &__label::before{
+                    color: $color-text;
+                    border-color: rgba($color-primary, 0.5);
+                }
+            }
+            &:checked{
+                ~ .form__option__label{
+                    &::before{
+                        color: $color-primary;
+                        background-color: rgba($color-primary, 0.3);
+                        border-color: rgba($color-primary, 0.5);
+                    }
+                    .form__option__text{
+                        color: $color-primary;
+                    }
+                }
+                &:focus-visible ~ .form__option{
+                    &__label::before{
+                        background-color: rgba($color-primary, 0.1);
+                    }
+                }
+            }
+        }
+    }
+    &__btn{
+        display: block;
+        width: 100%;
+        color: $color-white;
+        background-color: $color-primary;
+        font-family: $font-primary;
+        font-weight: 500;
+        border: 0;
+        font-size: 1.8rem;
+        padding: 1em;
+        margin-top: 2em;
+        border-radius: 0.8rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: all .3s cubic-bezier(.25,.46,.45,.94);
+        &:hover,
+        &:focus-visible
+        {
+            letter-spacing: 0.1em;
+            background-color: lighten($color-primary, $amount: 6);
+        }
+    }
+}
